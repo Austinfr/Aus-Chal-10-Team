@@ -22,7 +22,11 @@ function createHeader(name, title){
 }
 
 function createCard(data){
+    //header
     let cardHeader = createHeader(data.name, data.title);
+    //list
+    let list = ``
+
 }
 
 function createPage(data){
