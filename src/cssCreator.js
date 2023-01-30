@@ -1,6 +1,11 @@
 const fs = require('fs');
 
-let source = './sampleStyle.css';
-let destination = '../dist/style.css';
+function makeCSS(source, destination){
+    fs.copyFile(source, destination, err => {
+        if(err) throw err
+    });
+}
 
-module.exports = fs.copyFile(source, destination, (err) => {if(err) throw err});
+module.exports = {
+    makeCSS
+};

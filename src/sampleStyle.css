@@ -5,7 +5,6 @@
 header{
     display: flex;
     justify-content: center;
-    align-content: center;
     padding: 3%;
     background-color: rgb(238, 76, 98);
     color:white;
@@ -17,9 +16,6 @@ header{
     margin-top: 2%;
     margin-left: 12%;
     margin-right: 12%;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
 }
 
 .manager-card,

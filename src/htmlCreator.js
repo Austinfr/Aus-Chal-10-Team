@@ -3,7 +3,7 @@ const Engineer = require('../lib/Engineer');
 const Manager = require('../lib/Manager');
 const Intern = require('../lib/Intern');
 //makes the css just by requiring it
-// const css = require('./cssCreator');
+const css = require('./cssCreator');
 
 
 function createHeader(name, title){
@@ -56,11 +56,19 @@ function createCard(employee){
 
 }
 
-function createPage(name, data){
+//for some reason I get an error when I try to locate files with fs using paths from where this file is located
+//so I pass the destination in so it doesn't mess up
+//probably since this function is called in index.js that's where it's used
+//
+//for example if I label the destination in the cssCreator.js file as '../dist/style.css' running index.js will
+//return an error of trying to paste it to '.../dist/style.css' which doesn't exist
+//
+//I dunno if that's just a thing with fs or node.js or if that's an error but I found the work-around
+function createPage(name, data, cssSource, dest){
     //create the page header
     let pageHeader = `<header><h1>${name}</h1></header>`;
 
-    let cardSection = `<div id=team-cards class="d-flex justify-content-center>\n`;
+    let cardSection = `<div id=team-cards class="d-flex justify-content-center">\n`;
 
     //create a card for each item given
     for(let databit of data){
@@ -86,13 +94,15 @@ function createPage(name, data){
 
     let final = `${head}\n${body}\n</html>`;
 
-    fs.writeFile('../dist/index.html', final, 'utf8' | 'w', (err) => {
+    fs.writeFile(`${dest}/index.html`, final, (err) => {
         if(err){
             throw err;
         }else{
             console.log("File Written successfully");
         }
     })
+
+    css.makeCSS(cssSource, `${dest}/style.css`);
 }
 
 module.exports = {

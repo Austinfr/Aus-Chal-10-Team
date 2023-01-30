@@ -5,6 +5,10 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 let teamName = '';
 let teamData = [];
+//dunno why these are needed but it works
+//read more above createPage function in the htmlCreator.js file
+let destination = './dist';
+let cssSource = './src/sampleStyle.css';
 
 //need to get some way to loop and store the data each time
 
@@ -19,75 +23,36 @@ function init() {
                 message: 'What kind of team member would you like to add?',
                 choices: ["Manager", "Engineer", "Intern"]
             },
-            //manager questions
             {
                 type: 'input',
                 name: 'name',
-                message: 'What is this manager\'s name?',
-                when: (answers) => answers.teamMember === "Manager"
+                message: (answer) => `What is this ${answer.teamMember}'s name?`
             },
             {
                 type: 'input',
                 name: 'id',
-                message: 'What is this manager\'s id?',
-                when: (answers) => answers.teamMember === "Manager"
+                message: (answer) => `What is this ${answer.teamMember}'s id?`
             },
             {
                 type: 'input',
                 name: 'email',
-                message: 'What is this manager\'s email?',
-                when: (answers) => answers.teamMember === "Manager"
+                message: (answer) => `What is this ${answer.teamMember}'s email?`
             },
+            //manager question
             {
                 type: 'input',
                 name: 'officeNumber',
                 message: 'What is this manager\'s office number?',
                 when: (answers) => answers.teamMember === "Manager"
             },
-            //engineer questions
-            {
-                type: 'input',
-                name: 'name',
-                message: 'What is this engineer\'s name?',
-                when: (answers) => answers.teamMember === "Engineer"
-            },
-            {
-                type: 'input',
-                name: 'id',
-                message: 'What is this engineer\'s id?',
-                when: (answers) => answers.teamMember === "Engineer"
-            },
-            {
-                type: 'input',
-                name: 'email',
-                message: 'What is this engineer\'s email?',
-                when: (answers) => answers.teamMember === "Engineer"
-            },
+            //engineer question
             {
                 type: 'input',
                 name: 'github',
                 message: 'What is this engineer\'s Github name?',
                 when: (answers) => answers.teamMember === "Engineer"
             },
-            //intern questions
-            {
-                type: 'input',
-                name: 'name',
-                message: 'What is this intern\'s name?',
-                when: (answers) => answers.teamMember === "Intern"
-            },
-            {
-                type: 'input',
-                name: 'id',
-                message: 'What is this intern\'s id?',
-                when: (answers) => answers.teamMember === "Intern"
-            },
-            {
-                type: 'input',
-                name: 'email',
-                message: 'What is this intern\'s email?',
-                when: (answers) => answers.teamMember === "Intern"
-            },
+            //intern question
             {
                 type: 'input',
                 name: 'school',
@@ -98,7 +63,7 @@ function init() {
             {
                 type: 'confirm',
                 name: 'addMore',
-                message: 'Woul you like to add another team member?(y/n)'
+                message: 'Woul you like to add another team member?'
             }
 
         ]).then(data => {
@@ -124,12 +89,13 @@ function init() {
 
             //for when we're done adding team members add the data and pass it to our html creator
             }else{
-                htmlCreator.createPage(teamName, teamData);
+                htmlCreator.createPage(teamName, teamData, cssSource, destination);
             }
         })
     }
 
-    //asks about the team name first
+    //asks about the team name first since we only want to ask once
+    //and I could've used nesting within the then but this is how it went
     inquirer.prompt([
         {
             type: 'input',
