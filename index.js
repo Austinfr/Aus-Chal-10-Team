@@ -10,8 +10,6 @@ let teamData = [];
 let destination = './dist';
 let cssSource = './src/sampleStyle.css';
 
-//need to get some way to loop and store the data each time
-
 function init() {
 
     //then we move onto the questions about the team
